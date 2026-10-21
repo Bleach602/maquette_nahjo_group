@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NutriTrack | Documents</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">NG</div>
+          <div class="brand-copy">
+            <strong>NutriTrack</strong>
+            <span>Admin</span>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Menu principal">
+          <div class="nav-group">
+            <div class="nav-label">Pilotage</div>
+            <a class="nav-item" href="index.html"><span class="nav-left"><span class="nav-icon">⌂</span><span>Tableau de bord</span></span></a>
+          </div>
+          <div class="nav-group">
+            <div class="nav-label">Activité</div>
+            <a class="nav-item" href="clients.html"><span class="nav-left"><span class="nav-icon">👥</span><span>Clients</span></span><span class="nav-badge">124</span></a>
+            <a class="nav-item" href="products.html"><span class="nav-left"><span class="nav-icon">📦</span><span>Produits</span></span><span class="nav-badge">48</span></a>
+            <a class="nav-item" href="sales.html"><span class="nav-left"><span class="nav-icon">💰</span><span>Ventes</span></span><span class="nav-badge">9</span></a>
+            <a class="nav-item" href="inventory.html"><span class="nav-left"><span class="nav-icon">📊</span><span>Inventaires</span></span></a>
+            <a class="nav-item" href="payments.html"><span class="nav-left"><span class="nav-icon">💳</span><span>Paiements</span></span></a>
+            <a class="nav-item active" href="documents.html"><span class="nav-left"><span class="nav-icon">📄</span><span>Documents</span></span></a>
+          </div>
+          <div class="nav-group">
+            <div class="nav-label">Système</div>
+            <a class="nav-item" href="admin.html"><span class="nav-left"><span class="nav-icon">⚙</span><span>Administration</span></span></a>
+          </div>
+        </nav>
+
+        <div class="sidebar-footer">
+          <strong>État du système</strong>
+          <p>Archive des factures et documents internes.</p>
+          <button class="sidebar-logout" type="button">Déconnexion</button>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="mobile-menu" type="button" aria-label="Ouvrir le menu">☰</button>
+            <div>
+              <div class="page-title">Documents</div>
+              <div class="page-subtitle">Factures et pièces jointes</div>
+            </div>
+          </div>
+
+          <div class="topbar-right">
+            <label class="search" aria-label="Recherche">
+              <span>⌕</span>
+              <input type="search" placeholder="Rechercher..." />
+            </label>
+            <button class="primary-btn" type="button">+ Nouveau document</button>
+            <div class="user-box">
+              <div class="user-avatar">MK</div>
+              <div class="user-meta">
+                <strong>Mohamed K.</strong>
+                <span>Administrateur</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section class="content">
+          <div class="stats-grid">
+            <article class="stat-card">
+              <div class="stat-head"><span>Factures</span><span class="stat-icon">📄</span></div>
+              <div class="stat-value">1 432</div>
+              <div class="stat-meta"><span>documents actifs</span><span class="trend trend-up">+8%</span></div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-head"><span>À signer</span><span class="stat-icon">✍</span></div>
+              <div class="stat-value">27</div>
+              <div class="stat-meta"><span>à finaliser</span><span class="trend trend-down">-2%</span></div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-head"><span>Archivé</span><span class="stat-icon">🗂</span></div>
+              <div class="stat-value">842</div>
+              <div class="stat-meta"><span>ouverts</span><span class="trend trend-up">+11%</span></div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-head"><span>Vérification</span><span class="stat-icon">✓</span></div>
+              <div class="stat-value">96%</div>
+              <div class="stat-meta"><span>présence</span><span class="trend trend-up">+4%</span></div>
+            </article>
+          </div>
+
+          <section class="panel table-panel">
+            <div class="panel-head">
+              <h3>Documents récents</h3>
+              <span class="chip">Cette semaine</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Nom</th>
+                    <th>Type</th>
+                    <th>Client</th>
+                    <th>Date</th>
+                    <th>Statut</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Facture-1042.pdf</td>
+                    <td>Facture</td>
+                    <td>Hassane M.</td>
+                    <td>20 Oct 2026</td>
+                    <td><span class="status status-paid">Validé</span></td>
+                  </tr>
+                  <tr>
+                    <td>Bon-livraison-44.pdf</td>
+                    <td>Livraison</td>
+                    <td>Fatima D.</td>
+                    <td>19 Oct 2026</td>
+                    <td><span class="status status-pending">À signer</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>

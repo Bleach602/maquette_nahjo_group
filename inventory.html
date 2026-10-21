@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NutriTrack | Inventaires</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">NG</div>
+          <div class="brand-copy">
+            <strong>NutriTrack</strong>
+            <span>Admin</span>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Menu principal">
+          <div class="nav-group">
+            <div class="nav-label">Pilotage</div>
+            <a class="nav-item" href="index.html"><span class="nav-left"><span class="nav-icon">⌂</span><span>Tableau de bord</span></span></a>
+          </div>
+          <div class="nav-group">
+            <div class="nav-label">Activité</div>
+            <a class="nav-item" href="clients.html"><span class="nav-left"><span class="nav-icon">👥</span><span>Clients</span></span><span class="nav-badge">124</span></a>
+            <a class="nav-item" href="products.html"><span class="nav-left"><span class="nav-icon">📦</span><span>Produits</span></span><span class="nav-badge">48</span></a>
+            <a class="nav-item" href="sales.html"><span class="nav-left"><span class="nav-icon">💰</span><span>Ventes</span></span><span class="nav-badge">9</span></a>
+            <a class="nav-item active" href="inventory.html"><span class="nav-left"><span class="nav-icon">📊</span><span>Inventaires</span></span></a>
+            <a class="nav-item" href="payments.html"><span class="nav-left"><span class="nav-icon">💳</span><span>Paiements</span></span></a>
+            <a class="nav-item" href="documents.html"><span class="nav-left"><span class="nav-icon">📄</span><span>Documents</span></span></a>
+          </div>
+          <div class="nav-group">
+            <div class="nav-label">Système</div>
+            <a class="nav-item" href="admin.html"><span class="nav-left"><span class="nav-icon">⚙</span><span>Administration</span></span></a>
+          </div>
+        </nav>
+
+        <div class="sidebar-footer">
+          <strong>État du système</strong>
+          <p>Évolution des magasins et des seuils d’alerte.</p>
+          <button class="sidebar-logout" type="button">Déconnexion</button>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="mobile-menu" type="button" aria-label="Ouvrir le menu">☰</button>
+            <div>
+              <div class="page-title">Inventaires</div>
+              <div class="page-subtitle">Suivi des stock par catégorie</div>
+            </div>
+          </div>
+
+          <div class="topbar-right">
+            <label class="search" aria-label="Recherche">
+              <span>⌕</span>
+              <input type="search" placeholder="Rechercher..." />
+            </label>
+            <button class="primary-btn" type="button">+ Nouveau mouvement</button>
+            <div class="user-box">
+              <div class="user-avatar">MK</div>
+              <div class="user-meta">
+                <strong>Mohamed K.</strong>
+                <span>Administrateur</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section class="content">
+          <div class="stats-grid">
+            <article class="stat-card">
+              <div class="stat-head"><span>Stock total</span><span class="stat-icon">▤</span></div>
+              <div class="stat-value">12 480</div>
+              <div class="stat-meta"><span>unités disponibles</span><span class="trend trend-up">+4%</span></div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-head"><span>Catégories</span><span class="stat-icon">◫</span></div>
+              <div class="stat-value">18</div>
+              <div class="stat-meta"><span>types de produits</span><span class="trend trend-up">+2%</span></div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-head"><span>Entrées</span><span class="stat-icon">↗</span></div>
+              <div class="stat-value">860</div>
+              <div class="stat-meta"><span>dernière semaine</span><span class="trend trend-up">+9%</span></div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-head"><span>Sorties</span><span class="stat-icon">↘</span></div>
+              <div class="stat-value">532</div>
+              <div class="stat-meta"><span>dernière semaine</span><span class="trend trend-down">-3%</span></div>
+            </article>
+          </div>
+
+          <section class="panel table-panel">
+            <div class="panel-head">
+              <h3>Inventaire par produit</h3>
+              <span class="chip">Aujourd’hui</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Produit</th>
+                    <th>Catégorie</th>
+                    <th>Quantité</th>
+                    <th>Seuil</th>
+                    <th>Statut</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Omega 3 Forte</td>
+                    <td>Vitamine</td>
+                    <td>42</td>
+                    <td>20</td>
+                    <td><span class="status status-paid">OK</span></td>
+                  </tr>
+                  <tr>
+                    <td>Magnesium Plus</td>
+                    <td>Minéraux</td>
+                    <td>12</td>
+                    <td>18</td>
+                    <td><span class="status status-pending">Bas</span></td>
+                  </tr>
+                  <tr>
+                    <td>Energy Max</td>
+                    <td>Boost</td>
+                    <td>0</td>
+                    <td>12</td>
+                    <td><span class="status status-danger">Rupture</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>

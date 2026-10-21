@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NutriTrack | Paiements</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">NG</div>
+          <div class="brand-copy">
+            <strong>NutriTrack</strong>
+            <span>Admin</span>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Menu principal">
+          <div class="nav-group">
+            <div class="nav-label">Pilotage</div>
+            <a class="nav-item" href="index.html"><span class="nav-left"><span class="nav-icon">⌂</span><span>Tableau de bord</span></span></a>
+          </div>
+          <div class="nav-group">
+            <div class="nav-label">Activité</div>
+            <a class="nav-item" href="clients.html"><span class="nav-left"><span class="nav-icon">👥</span><span>Clients</span></span><span class="nav-badge">124</span></a>
+            <a class="nav-item" href="products.html"><span class="nav-left"><span class="nav-icon">📦</span><span>Produits</span></span><span class="nav-badge">48</span></a>
+            <a class="nav-item" href="sales.html"><span class="nav-left"><span class="nav-icon">💰</span><span>Ventes</span></span><span class="nav-badge">9</span></a>
+            <a class="nav-item" href="inventory.html"><span class="nav-left"><span class="nav-icon">📊</span><span>Inventaires</span></span></a>
+            <a class="nav-item active" href="payments.html"><span class="nav-left"><span class="nav-icon">💳</span><span>Paiements</span></span></a>
+            <a class="nav-item" href="documents.html"><span class="nav-left"><span class="nav-icon">📄</span><span>Documents</span></span></a>
+          </div>
+          <div class="nav-group">
+            <div class="nav-label">Système</div>
+            <a class="nav-item" href="admin.html"><span class="nav-left"><span class="nav-icon">⚙</span><span>Administration</span></span></a>
+          </div>
+        </nav>
+
+        <div class="sidebar-footer">
+          <strong>État du système</strong>
+          <p>Suivi des encaissements et frais.</p>
+          <button class="sidebar-logout" type="button">Déconnexion</button>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="mobile-menu" type="button" aria-label="Ouvrir le menu">☰</button>
+            <div>
+              <div class="page-title">Paiements</div>
+              <div class="page-subtitle">Suivi des encaissements</div>
+            </div>
+          </div>
+
+          <div class="topbar-right">
+            <label class="search" aria-label="Recherche">
+              <span>⌕</span>
+              <input type="search" placeholder="Rechercher..." />
+            </label>
+            <button class="primary-btn" type="button">+ Nouveau paiement</button>
+            <div class="user-box">
+              <div class="user-avatar">MK</div>
+              <div class="user-meta">
+                <strong>Mohamed K.</strong>
+                <span>Administrateur</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section class="content">
+          <div class="stats-grid">
+            <article class="stat-card">
+              <div class="stat-head"><span>Validés</span><span class="stat-icon">✓</span></div>
+              <div class="stat-value">41 860 €</div>
+              <div class="stat-meta"><span>encaissements</span><span class="trend trend-up">+9%</span></div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-head"><span>En attente</span><span class="stat-icon">◔</span></div>
+              <div class="stat-value">12</div>
+              <div class="stat-meta"><span>paiements</span><span class="trend trend-down">-2%</span></div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-head"><span>Retards</span><span class="stat-icon">!</span></div>
+              <div class="stat-value">8</div>
+              <div class="stat-meta"><span>à traiter</span><span class="trend trend-down">-1%</span></div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-head"><span>Frais</span><span class="stat-icon">€</span></div>
+              <div class="stat-value">1 240 €</div>
+              <div class="stat-meta"><span>coût du mois</span><span class="trend trend-up">+3%</span></div>
+            </article>
+          </div>
+
+          <section class="panel table-panel">
+            <div class="panel-head">
+              <h3>Historique des paiements</h3>
+              <span class="chip">Aujourd’hui</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Référence</th>
+                    <th>Client</th>
+                    <th>Montant</th>
+                    <th>Mode</th>
+                    <th>Statut</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>#PAY-120</td>
+                    <td>Hassane M.</td>
+                    <td class="money">1 240 €</td>
+                    <td>Carte</td>
+                    <td><span class="status status-paid">Validé</span></td>
+                  </tr>
+                  <tr>
+                    <td>#PAY-119</td>
+                    <td>Fatima D.</td>
+                    <td class="money">680 €</td>
+                    <td>Mobile</td>
+                    <td><span class="status status-pending">Partiel</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>

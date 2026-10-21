@@ -52,20 +52,20 @@ window.NutriTrack.navigation = {
     };
 
     const viewMap = {
-      dashboard: 'components/dashboard.html',
-      clients: 'components/dashboard.html',
-      products: 'components/dashboard.html',
-      supplies: 'components/dashboard.html',
-      sales: 'components/dashboard.html',
-      payments: 'components/dashboard.html',
-      inventory: 'components/dashboard.html',
-      documents: 'components/dashboard.html',
-      notifications: 'components/dashboard.html',
-      users: 'components/dashboard.html',
-      backups: 'components/dashboard.html'
+      dashboard: 'web/components/dashboard.html',
+      clients: 'web/components/clients.html',
+      products: 'web/components/products.html',
+      supplies: 'web/components/sales.html',
+      sales: 'web/components/sales.html',
+      payments: 'web/components/sales.html',
+      inventory: 'web/components/sales.html',
+      documents: 'web/components/products.html',
+      notifications: 'web/components/clients.html',
+      users: 'web/components/clients.html',
+      backups: 'web/components/products.html'
     };
 
-    fetch(viewMap[viewName] || 'components/dashboard.html')
+    fetch(viewMap[viewName] || 'web/components/dashboard.html')
       .then((response) => response.text())
       .then((html) => {
         contentRoot.innerHTML = html;

@@ -1,0 +1,124 @@
+/* ==================================================
+   COMPOSANT : NAVBAR
+   RESPONSABILITÉ : styles de la barre supérieure.
+   FUTUR FICHIER : css/components/navbar.css
+   RÔLE DANS LE PROJET : composant réutilisable sur toutes les pages.
+   ================================================== */
+.topbar {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:20px 24px;
+  border-bottom:1px solid var(--line);
+  background:rgba(255,255,255,.45);
+  backdrop-filter:blur(8px);
+}
+
+.topbar__left {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
+
+.topbar__title {
+  font-size:1.35rem;
+  font-weight:700;
+  letter-spacing:-.04em;
+}
+
+.topbar__meta {
+  color:var(--muted);
+  font-size:.8rem;
+  font-weight:500;
+}
+
+.topbar__right {
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.search {
+  width:280px;
+  height:42px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:0 12px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:rgba(255,255,255,.75);
+}
+
+.search svg {
+  width:16px;
+  height:16px;
+  color:var(--muted);
+  stroke-width:2;
+}
+
+.search input {
+  width:100%;
+  border:none;
+  background:transparent;
+  outline:none;
+  color:var(--ink);
+  font-size:.9rem;
+}
+
+.topbar__button {
+  height:42px;
+  padding:0 16px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(135deg, var(--brand), var(--brand-2));
+  color:#fff;
+  font-weight:600;
+  box-shadow:0 12px 20px rgba(31,93,82,.12);
+  cursor:pointer;
+  transition:transform .15s var(--ease), box-shadow .15s var(--ease);
+}
+
+.topbar__button:hover {
+  transform:translateY(-1px);
+  box-shadow:0 16px 22px rgba(31,93,82,.16);
+}
+
+.user {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:rgba(255,255,255,.7);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:6px 10px 6px 8px;
+}
+
+.user__avatar {
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg, rgba(31,93,82,.12), rgba(31,93,82,.04));
+  color:var(--brand);
+  font-weight:700;
+  font-size:.75rem;
+}
+
+.user__meta {
+  display:flex;
+  flex-direction:column;
+  line-height:1.2;
+}
+
+.user__meta strong {
+  font-size:.78rem;
+}
+
+.user__meta span {
+  color:var(--muted);
+  font-size:.68rem;
+}

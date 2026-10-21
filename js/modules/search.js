@@ -6,6 +6,7 @@
    ================================================== */
 window.NutriTrack = window.NutriTrack || {};
 
+
 window.NutriTrack.search = {
   init: function () {
     const searchInput = document.querySelector('.search input');

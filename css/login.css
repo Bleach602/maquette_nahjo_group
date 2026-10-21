@@ -1,0 +1,509 @@
+/* =========================================================
+   NutriTrack — Login (refonte dark premium)
+   ========================================================= */
+
+:root {
+    /* Fond */
+    --bg:            #080a09;
+    --bg-soft:       #0d100e;
+
+    /* Accents */
+    --accent:        #7dd3a0;
+    --accent-soft:   rgba(125, 211, 160, .12);
+    --accent-line:   rgba(125, 211, 160, .35);
+    --gold:          #d4b483;
+
+    /* Texte */
+    --text:          #f2f5f3;
+    --text-soft:     #a8b0ac;
+    --text-mute:     #6b746f;
+
+    /* Surfaces glass */
+    --glass:         rgba(255, 255, 255, .035);
+    --glass-hover:   rgba(255, 255, 255, .06);
+    --border:        rgba(255, 255, 255, .08);
+    --border-focus:  rgba(125, 211, 160, .5);
+
+    /* États */
+    --error:         #ff6b6b;
+    --error-bg:      rgba(255, 107, 107, .08);
+    --success:       #7dd3a0;
+    --success-bg:    rgba(125, 211, 160, .08);
+
+    /* Typo */
+    --font-head: 'Sora', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+
+    /* Rayons */
+    --r-sm: 8px;
+    --r-md: 12px;
+    --r-lg: 20px;
+
+    /* Motion */
+    --ease: cubic-bezier(.4, 0, .2, 1);
+}
+
+/* ===== Reset ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+
+body {
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+button, input { font: inherit; color: inherit; }
+button { background: none; border: 0; cursor: pointer; }
+
+/* =========================================================
+   SCÈNE — fond + halos
+   ========================================================= */
+.scene {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+    overflow: hidden;
+}
+
+.scene__glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+}
+.scene__glow--1 {
+    width: 600px; height: 600px;
+    top: -200px; left: -150px;
+    background: radial-gradient(circle, rgba(125, 211, 160, .22), transparent 70%);
+}
+.scene__glow--2 {
+    width: 700px; height: 700px;
+    bottom: -300px; right: -200px;
+    background: radial-gradient(circle, rgba(212, 180, 131, .12), transparent 70%);
+}
+
+/* =========================================================
+   LAYOUT
+   ========================================================= */
+.login {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 0;
+}
+
+/* =========================================================
+   PANNEAU IMAGE
+   ========================================================= */
+.login__visual {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 48px 52px;
+}
+
+.login__visual-img {
+    position: absolute;
+    inset: 0;
+    background-image: url('../img/login-side.jpg');
+    background-size: cover;
+    background-position: center;
+    /* fallback dégradé si pas d'image */
+    background-color: #14201a;
+    filter: saturate(.85) brightness(.65);
+    transform: scale(1.05);
+}
+
+/* Dégradé de fusion vers le noir + voile brand */
+.login__visual-fade {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg, transparent 40%, var(--bg) 100%),
+        linear-gradient(180deg, rgba(8,10,9,.4) 0%, transparent 30%, rgba(8,10,9,.85) 100%);
+}
+
+.login__visual-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+/* Marque */
+.login__brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.login__mark {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--accent);
+    flex-shrink: 0;
+    backdrop-filter: blur(8px);
+}
+
+.login__brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+.login__brand-text strong {
+    font-family: var(--font-head);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -.1px;
+}
+.login__brand-text span {
+    font-size: 11.5px;
+    color: var(--text-mute);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+/* Citation */
+.login__quote {
+    max-width: 360px;
+}
+.login__quote p {
+    font-family: var(--font-head);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.45;
+    letter-spacing: -.2px;
+    color: rgba(242, 245, 243, .88);
+    border-left: 2px solid var(--gold);
+    padding-left: 18px;
+}
+
+/* =========================================================
+   PANNEAU FORMULAIRE
+   ========================================================= */
+.login__panel {
+    display: grid;
+    place-items: center;
+    padding: 48px;
+}
+
+.login__card {
+    width: 100%;
+    max-width: 400px;
+    padding: 40px 36px;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, .04) inset,
+        0 24px 60px -20px rgba(0, 0, 0, .6);
+    animation: cardIn .6s var(--ease) both;
+}
+
+@keyframes cardIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Header mobile */
+.login__mobile-head {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+.login__mobile-head strong {
+    font-family: var(--font-head);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+/* Header */
+.login__header {
+    margin-bottom: 28px;
+}
+.login__header h1 {
+    font-family: var(--font-head);
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -.6px;
+    color: var(--text);
+    margin-bottom: 6px;
+}
+.login__header p {
+    font-size: 14px;
+    color: var(--text-soft);
+    line-height: 1.5;
+}
+
+/* ===== Alerte ===== */
+.alert {
+    padding: 12px 14px;
+    font-size: 13px;
+    line-height: 1.45;
+    border-radius: var(--r-sm);
+    background: var(--error-bg);
+    color: var(--error);
+    border: 1px solid rgba(255, 107, 107, .25);
+    margin-bottom: 20px;
+}
+.alert[hidden] { display: none; }
+.alert--success {
+    background: var(--success-bg);
+    color: var(--success);
+    border-color: rgba(125, 211, 160, .25);
+}
+
+/* ===== Champs ===== */
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 18px;
+}
+
+.field label {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--text-soft);
+    letter-spacing: .2px;
+}
+
+.field__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+}
+
+.link-sub {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--accent);
+    transition: opacity .15s var(--ease);
+}
+.link-sub:hover { opacity: .75; }
+
+.field input {
+    width: 100%;
+    height: 46px;
+    padding: 0 14px;
+    background: rgba(0, 0, 0, .25);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    font-size: 14.5px;
+    color: var(--text);
+    transition: border-color .15s var(--ease), background .15s var(--ease), box-shadow .15s var(--ease);
+    outline: none;
+}
+
+.field input::placeholder { color: var(--text-mute); }
+
+.field input:hover {
+    border-color: rgba(255, 255, 255, .14);
+    background: rgba(0, 0, 0, .32);
+}
+
+.field input:focus {
+    border-color: var(--border-focus);
+    background: rgba(0, 0, 0, .35);
+    box-shadow: 0 0 0 3px rgba(125, 211, 160, .14);
+}
+
+/* Erreur champ */
+.field__error {
+    font-size: 12px;
+    color: var(--error);
+    display: none;
+}
+
+.field.has-error input {
+    border-color: rgba(255, 107, 107, .5);
+}
+.field.has-error input:focus {
+    box-shadow: 0 0 0 3px rgba(255, 107, 107, .12);
+}
+.field.has-error .field__error { display: block; }
+
+/* ===== Checkbox ===== */
+.check {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13.5px;
+    color: var(--text-soft);
+    cursor: pointer;
+    user-select: none;
+    margin-bottom: 22px;
+}
+.check input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+
+/* ===== Bouton ===== */
+.btn {
+    position: relative;
+    width: 100%;
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--accent);
+    color: #0a1410;
+    border-radius: var(--r-md);
+    font-family: var(--font-head);
+    font-size: 14.5px;
+    font-weight: 600;
+    letter-spacing: .1px;
+    transition: background .15s var(--ease), transform .1s var(--ease), box-shadow .15s var(--ease);
+    box-shadow: 0 8px 24px -8px rgba(125, 211, 160, .5);
+}
+.btn:hover:not(:disabled) {
+    background: #8fe0b0;
+    box-shadow: 0 10px 28px -8px rgba(125, 211, 160, .65);
+}
+.btn:active:not(:disabled) { transform: translateY(1px); }
+.btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+.btn:disabled { opacity: .7; cursor: not-allowed; box-shadow: none; }
+
+.btn__spinner {
+    display: none;
+    width: 15px;
+    height: 15px;
+    border: 2px solid rgba(10, 20, 16, .25);
+    border-top-color: #0a1410;
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+}
+.btn.is-loading .btn__spinner { display: inline-block; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Note */
+.login__note {
+    margin-top: 22px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--text-mute);
+}
+
+/* Footer scène */
+.scene__footer {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 20px;
+    font-size: 12px;
+    color: var(--text-mute);
+}
+.scene__footer .dot { opacity: .5; }
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+/* Tablette */
+@media (max-width: 1024px) {
+    .login { grid-template-columns: .85fr 1fr; }
+    .login__visual { padding: 36px; }
+    .login__quote p { font-size: 18px; }
+    .login__panel { padding: 36px; }
+}
+
+/* Mobile : layout vertical — image en bandeau immersif */
+@media (max-width: 768px) {
+    .login {
+        grid-template-columns: 1fr;
+        grid-template-rows: 45vh 1fr;
+    }
+
+    .login__visual {
+        padding: 24px;
+        justify-content: flex-start;
+    }
+
+    .login__visual-fade {
+        background:
+            linear-gradient(180deg, rgba(8,10,9,.35) 0%, transparent 30%, var(--bg) 100%);
+    }
+
+    .login__quote { display: none; }
+
+    .login__visual-content {
+        justify-content: flex-start;
+    }
+
+    .login__panel {
+        padding: 0 20px 40px;
+        align-items: start;
+        margin-top: -40px; /* la carte chevauche l'image */
+    }
+
+    .login__card {
+        max-width: 100%;
+        padding: 32px 24px;
+        background: rgba(13, 16, 14, .75);
+        backdrop-filter: blur(24px) saturate(140%);
+        -webkit-backdrop-filter: blur(24px) saturate(140%);
+    }
+
+    .login__mobile-head { display: flex; }
+    .login__header h1 { font-size: 22px; }
+}
+
+/* Petit mobile */
+@media (max-width: 380px) {
+    .login { grid-template-rows: 38vh 1fr; }
+    .login__card { padding: 28px 20px; }
+    .login__header h1 { font-size: 20px; }
+}
+
+/* A11y */
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}

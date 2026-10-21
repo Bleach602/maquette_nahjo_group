@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NutriTrack | Dashboard</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --brand:#1f5d52;
+      --brand-2:#2a7669;
+      --brand-3:#eaf5f2;
+      --brand-soft:rgba(31,93,82,.08);
+
+      --ink:#13211d;
+      --ink-soft:#536764;
+      --muted:#83918d;
+      --line:#dfe9e6;
+
+      --bg:#f4f8f7;
+      --bg-2:#edf4f2;
+      --surface:#ffffff;
+      --surface-soft:#f7faf9;
+
+      --success:#1d8b65;
+      --warning:#d7962d;
+      --danger:#d75a4a;
+      --info:#3b7bd5;
+
+      --shadow: 0 16px 32px rgba(18, 35, 31, 0.06);
+      --radius: 18px;
+      --ease: cubic-bezier(.2,.8,.2,1);
+      --font:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    }
+
+    *{ box-sizing:border-box; margin:0; padding:0; }
+
+    html, body{
+      height:100%;
+      font-family:var(--font);
+      background:var(--bg);
+      color:var(--ink);
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+
+    a{text-decoration:none; color:inherit;}
+    button, input{ font:inherit; }
+
+    .app{
+      display:grid;
+      grid-template-columns: 260px 1fr;
+      min-height:100vh;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar{
+      background:linear-gradient(180deg, #ffffff 0%, #f6faf9 100%);
+      border-right:1px solid var(--line);
+      padding:24px 18px;
+      display:flex;
+      flex-direction:column;
+      gap:22px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:6px 8px 18px;
+      border-bottom:1px solid rgba(31,93,82,.08);
+    }
+
+    .brand__mark{
+      width:42px;
+      height:42px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg, var(--brand), var(--brand-2));
+      color:#fff;
+      font-size:.72rem;
+      font-weight:800;
+      letter-spacing:.08em;
+    }
+
+    .brand__txt{
+      display:flex;
+      flex-direction:column;
+      line-height:1.2;
+    }
+
+    .brand__txt strong{
+      font-size:0.95rem;
+      letter-spacing:-.02em;
+    }
+
+    .brand__txt span{
+      font-size:0.68rem;
+      color:var(--muted);
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .nav{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
+    .nav__group{
+      margin-top:4px;
+    }
+
+    .nav__label{
+      font-size:.68rem;
+      font-weight:700;
+      color:var(--muted);
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      padding:10px 12px 8px;
+    }
+
+    .nav__item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:11px 12px;
+      border-radius:12px;
+      color:var(--ink-soft);
+      transition:all .16s var(--ease);
+      cursor:pointer;
+    }
+
+    .nav__item:hover{
+      background:var(--brand-soft);
+      color:var(--ink);
+    }
+
+    .nav__item.active{
+      background:linear-gradient(135deg, rgba(31,93,82,.10), rgba(31,93,82,.04));
+      color:var(--ink);
+      font-weight:600;
+      box-shadow: inset 0 0 0 1px rgba(31,93,82,.06);
+    }
+
+    .nav__left{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+    }
+
+    .nav__icon{
+      width:28px;
+      height:28px;
+      display:grid;
+      place-items:center;
+      border-radius:9px;
+      background:rgba(31,93,82,.06);
+      color:var(--brand);
+    }
+
+    .nav__icon svg{
+      width:15px;
+      height:15px;
+      stroke-width:2;
+    }
+
+    .nav__badge{
+      height:20px;
+      min-width:20px;
+      padding:0 7px;
+      border-radius:999px;
+      background:var(--brand-soft);
+      color:var(--brand);
+      font-size:.68rem;
+      font-weight:700;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .sidebar__footer{
+      margin-top:auto;
+      background:linear-gradient(180deg, rgba(31,93,82,.06), rgba(31,93,82,.02));
+      border:1px solid rgba(31,93,82,.08);
+      border-radius:16px;
+      padding:14px 12px;
+    }
+
+    .sidebar__footer strong{
+      display:block;
+      font-size:.8rem;
+      margin-bottom:4px;
+      color:var(--ink);
+    }
+
+    .sidebar__footer p{
+      color:var(--muted);
+      font-size:.72rem;
+      line-height:1.5;
+    }
+
+    /* ===== MAIN ===== */
+    .main{
+      display:flex;
+      flex-direction:column;
+      min-width:0;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:20px 24px;
+      border-bottom:1px solid var(--line);
+      background:rgba(255,255,255,.45);
+      backdrop-filter: blur(8px);
+    }
+
+    .topbar__left{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+
+    .topbar__title{
+      font-size:1.35rem;
+      font-weight:700;
+      letter-spacing:-0.04em;
+    }
+
+    .topbar__meta{
+      color:var(--muted);
+      font-size:.8rem;
+      font-weight:500;
+    }
+
+    .topbar__right{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .search{
+      width:280px;
+      height:42px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:0 12px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:rgba(255,255,255,.75);
+    }
+
+    .search svg{
+      width:16px;
+      height:16px;
+      color:var(--muted);
+      stroke-width:2;
+    }
+
+    .search input{
+      width:100%;
+      border:none;
+      background:transparent;
+      outline:none;
+      color:var(--ink);
+      font-size:.9rem;
+    }
+
+    .topbar__button{
+      height:42px;
+      padding:0 16px;
+      border:none;
+      border-radius:12px;
+      background:linear-gradient(135deg, var(--brand), var(--brand-2));
+      color:#fff;
+      font-weight:600;
+      box-shadow:0 12px 20px rgba(31,93,82,.12);
+      cursor:pointer;
+      transition: transform .15s var(--ease), box-shadow .15s var(--ease);
+    }
+
+    .topbar__button:hover{
+      transform:translateY(-1px);
+      box-shadow:0 16px 22px rgba(31,93,82,.16);
+    }
+
+    .user{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      background:rgba(255,255,255,.7);
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:6px 10px 6px 8px;
+    }
+
+    .user__avatar{
+      width:34px;
+      height:34px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg, rgba(31,93,82,.12), rgba(31,93,82,.04));
+      color:var(--brand);
+      font-weight:700;
+      font-size:.75rem;
+    }
+
+    .user__meta{
+      display:flex;
+      flex-direction:column;
+      line-height:1.2;
+    }
+
+    .user__meta strong{
+      font-size:.78rem;
+    }
+
+    .user__meta span{
+      color:var(--muted);
+      font-size:.68rem;
+    }
+
+    .content{
+      padding:24px;
+      display:flex;
+      flex-direction:column;
+      gap:22px;
+    }
+
+    /* ===== KPI CARDS ===== */
+    .stats{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(180px, 1fr));
+      gap:16px;
+    }
+
+    .stat{
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(31,93,82,.06);
+      border-radius:18px;
+      padding:18px 18px 16px;
+      box-shadow:var(--shadow);
+    }
+
+    .stat__top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:12px;
+    }
+
+    .stat__label{
+      color:var(--muted);
+      font-size:.74rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-weight:700;
+    }
+
+    .stat__icon{
+      width:38px;
+      height:38px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      background:var(--brand-soft);
+      color:var(--brand);
+    }
+
+    .stat__icon svg{
+      width:18px;
+      height:18px;
+      stroke-width:2;
+    }
+
+    .stat__value{
+      font-size:1.6rem;
+      font-weight:800;
+      letter-spacing:-.05em;
+      margin-bottom:6px;
+    }
+
+    .stat__meta{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      font-size:.78rem;
+      color:var(--muted);
+    }
+
+    .stat__trend{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:5px 8px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:.72rem;
+    }
+
+    .trend--up{
+      background:rgba(29,139,101,.08);
+      color:var(--success);
+    }
+
+    .trend--down{
+      background: rgba(215,90,74,.08);
+      color:var(--danger);
+    }
+
+    /* ===== CHART BLOCK ===== */
+    .grid{
+      display:grid;
+      grid-template-columns: 1.4fr 0.9fr;
+      gap:18px;
+    }
+
+    .panel{
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(31,93,82,.06);
+      border-radius:20px;
+      box-shadow:var(--shadow);
+      padding:20px;
+    }
+
+    .panel__head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:16px;
+    }
+
+    .panel__title{
+      font-size:1.02rem;
+      font-weight:700;
+      letter-spacing:-.02em;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:7px 10px;
+      border-radius:999px;
+      background:var(--brand-soft);
+      color:var(--brand);
+      font-size:.72rem;
+      font-weight:700;
+    }
+
+    .chart{
+      display:flex;
+      align-items:flex-end;
+      gap:12px;
+      height:210px;
+      padding:8px 4px 0;
+      border-bottom:1px solid var(--line);
+      position:relative;
+    }
+
+    .chart__col{
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      align-items:center;
+      gap:10px;
+      height:100%;
+    }
+
+    .chart__bar-wrap{
+      width:100%;
+      height:100%;
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+      position:relative;
+    }
+
+    .chart__bar{
+      width:100%;
+      max-width:36px;
+      border-radius:10px 10px 0 0;
+      background:linear-gradient(180deg, rgba(31,93,82,.86), rgba(31,93,82,.45));
+      min-height:24px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.28);
+    }
+
+    .chart__label{
+      font-size:.7rem;
+      color:var(--muted);
+      font-weight:600;
+    }
+
+    .chart__legend{
+      display:flex;
+      justify-content:space-between;
+      margin-top:16px;
+      color:var(--muted);
+      font-size:.78rem;
+    }
+
+    .legend{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .legend__dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:var(--brand);
+      display:inline-block;
+    }
+
+    /* ===== RIGHT WIDGET ===== */
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    .mini-card{
+      background:linear-gradient(180deg, rgba(31,93,82,.04), rgba(31,93,82,.02));
+      border:1px solid rgba(31,93,82,.08);
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .mini-card__title{
+      font-size:.76rem;
+      font-weight:700;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin-bottom:10px;
+    }
+
+    .ring{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:110px;
+      height:110px;
+      margin:0 auto 10px;
+      border-radius:50%;
+      background:
+        radial-gradient(circle at center, #fff 0 52%, transparent 53%),
+        conic-gradient(var(--brand) 0 68%, #dfe9e6 68% 100%);
+      position:relative;
+    }
+
+    .ring__value{
+      font-size:1.35rem;
+      font-weight:800;
+      letter-spacing:-.05em;
+      color:var(--ink);
+    }
+
+    .mini-card__text{
+      text-align:center;
+      color:var(--muted);
+      font-size:.8rem;
+      line-height:1.5;
+    }
+
+    .progress-list{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      margin-top:12px;
+    }
+
+    .progress{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
+    .progress__head{
+      display:flex;
+      justify-content:space-between;
+      font-size:.76rem;
+      color:var(--soft);
+    }
+
+    .progress__bar{
+      width:100%;
+      height:8px;
+      background:#edf2f1;
+      border-radius:999px;
+      overflow:hidden;
+    }
+
+    .progress__fill{
+      height:100%;
+      border-radius:999px;
+      background:linear-gradient(90deg, var(--brand), var(--brand-2));
+    }
+
+    /* ===== TABLES ===== */
+    .table-card{
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(31,93,82,.06);
+      border-radius:20px;
+      box-shadow:var(--shadow);
+      padding:20px;
+      overflow:hidden;
+    }
+
+    .table-wrap{
+      overflow:auto;
+      border-radius:12px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      min-width:720px;
+    }
+
+    th, td{
+      padding:14px 12px;
+      text-align:left;
+      border-bottom:1px solid var(--line);
+      font-size:.87rem;
+    }
+
+    th{
+      font-size:.72rem;
+      text-transform:uppercase;
+      letter-spacing:.09em;
+      color:var(--muted);
+      background:rgba(31,93,82,.02);
+      font-weight:700;
+    }
+
+    td{
+      color:var(--ink-soft);
+    }
+
+    .status{
+      display:inline-flex;
+      align-items:center;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:.72rem;
+      font-weight:700;
+    }
+
+    .status--paid{
+      background:rgba(29,139,101,.08);
+      color:var(--success);
+    }
+
+    .status--pending{
+      background:rgba(215,150,45,.10);
+      color:var(--warning);
+    }
+
+    .status--danger{
+      background:rgba(215,90,74,.08);
+      color:var(--danger);
+    }
+
+    .product{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .product__avatar{
+      width:30px;
+      height:30px;
+      border-radius:9px;
+      background:linear-gradient(135deg, rgba(31,93,82,.12), rgba(31,93,82,.02));
+      color:var(--brand);
+      display:grid;
+      place-items:center;
+      font-weight:700;
+      font-size:.72rem;
+    }
+
+    .money{
+      font-weight:700;
+      color:var(--ink);
+    }
+
+    .row-actions{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .action{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:30px;
+      height:30px;
+      border-radius:8px;
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--brand);
+      cursor:pointer;
+    }
+
+    .action:hover{
+      background:var(--brand-soft);
+    }
+
+    /* ===== BOTTOM GRID ===== */
+    .bottom-grid{
+      display:grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap:18px;
+    }
+
+    .small-list{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      margin-top:10px;
+    }
+
+    .small-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 10px;
+      border:1px solid rgba(31,93,82,.08);
+      border-radius:12px;
+      background:rgba(31,93,82,.02);
+    }
+
+    .small-item__left{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .small-item__dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:var(--brand);
+    }
+
+    .small-item__text strong{
+      display:block;
+      font-size:.82rem;
+      color:var(--ink);
+    }
+
+    .small-item__text span{
+      color:var(--muted);
+      font-size:.72rem;
+    }
+
+    .small-item__right{
+      font-size:.8rem;
+      font-weight:700;
+      color:var(--ink);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width:1200px){
+      .stats{
+        grid-template-columns: repeat(2, minmax(180px, 1fr));
+      }
+
+      .grid, .bottom-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:980px){
+      .app{
+        grid-template-columns:1fr;
+      }
+
+      .sidebar{
+        border-right:none;
+        border-bottom:1px solid var(--line);
+      }
+
+      .search{
+        width:180px;
+      }
+    }
+
+    @media (max-width:640px){
+      .topbar{
+        flex-wrap:wrap;
+      }
+
+      .topbar__right{
+        width:100%;
+        justify-content:space-between;
+      }
+
+      .search{
+        width:100%;
+        flex:1;
+      }
+
+      .stats{
+        grid-template-columns:1fr;
+      }
+
+      .content{
+        padding:18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand__mark">NG</div>
+        <div class="brand__txt">
+          <strong>NutriTrack</strong>
+          <span>Admin</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <div class="nav__group">
+          <div class="nav__label">Pilotage</div>
+
+          <div class="nav__item active">
+            <div class="nav__left">
+              <span class="nav__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 12.5 12 4l8 8.5"/>
+                  <path d="M6 10.5V20h12v-9.5"/>
+                </svg>
+              </span>
+              <span>Tableau de bord</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav__group">
+          <div class="nav__label">Activité</div>
+
+          <div class="nav__item">
+            <div class="nav__left">
+              <span class="nav__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                  <circle cx="10" cy="7" r="4"/>
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </span>
+              <span>Clients</span>
+            </div>
+            <span class="nav__badge">124</span>
+          </div>
+
+          <div class="nav__item">
+            <div class="nav__left">
+              <span class="nav__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 3h12l4 7-10 11L2 10l4-7Z"/>
+                  <path d="M9 3l3 7h6"/>
+                </svg>
+              </span>
+              <span>Produits</span>
+            </div>
+            <span class="nav__badge">48</span>
+          </div>
+
+          <div class="nav__item">
+            <div class="nav__left">
+              <span class="nav__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 7h18"/>
+                  <path d="M8 12h8"/>
+                  <path d="M12 17h0"/>
+                  <rect x="3" y="4" width="18" height="16" rx="2"/>
+                </svg>
+              </span>
+              <span>Approvisionnements</span>
+            </div>
+            <span class="nav__badge">12</span>
+          </div>
+
+          <div class="nav__item">
+            <div class="nav__left">
+              <span class="nav__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 7h16"/>
+                  <path d="M7 12h10"/>
+                  <path d="M10 17h4"/>
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                </svg>
+              </span>
+              <span>Ventes</span>
+            </div>
+            <span class="nav__badge">9</span>
+          </div>
+
+          <div class="nav__item">
+            <div class="nav__left">
+              <span class="nav__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 7h18"/>
+                  <path d="M7 7V5h10v2"/>
+                  <path d="M6 7v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7"/>
+                  <path d="M9 12h6"/>
+                </svg>
+              </span>
+              <span>Paiements</span>
+            </div>
+          </div>
+
+          <div class="nav__item">
+            <div class="nav__left">
+              <span class="nav__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 3v18h18"/>
+                  <path d="M8 14l3-3 3 2 5-8"/>
+                </svg>
+              </span>
+              <span>Inventaires</span>
+            </div>
+          </div>
+
+          <div class="nav__item">
+            <div class="nav__left">
+              <span class="nav__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <path d="M14 2v6h6"/>
+                  <path d="M8 13h8M8 17h8"/>
+                </svg>
+              </span>
+              <span>Documents</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav__group">
+          <div class="nav__label">Système</div>
+
+          <div class="nav__item">
+            <div class="nav__left">
+              <span class="nav__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M15 17h5l-1.4-1.4A2 2 0 0 1 18 14.2V11a6 6 0 1 0-12 0v3.2a2 2 0 0 1-.6 1.4L4 17h5"/>
+                  <path d="M10 21a2 2 0 0 0 4 0"/>
+                </svg>
+              </span>
+              <span>Notifications</span>
+            </div>
+            <span class="nav__badge">3</span>
+          </div>
+
+          <div class="nav__item">
+            <div class="nav__left">
+              <span class="nav__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9.5" cy="7" r="3.5"/>
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </span>
+              <span>Utilisateurs</span>
+            </div>
+          </div>
+
+          <div class="nav__item">
+            <div class="nav__left">
+              <span class="nav__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2v6"/>
+                  <path d="M12 16v6"/>
+                  <path d="M4.93 4.93l4.24 4.24"/>
+                  <path d="M14.83 14.83l4.24 4.24"/>
+                  <path d="M2 12h6"/>
+                  <path d="M16 12h6"/>
+                  <path d="M4.93 19.07l4.24-4.24"/>
+                  <path d="M14.83 9.17l4.24-4.24"/>
+                </svg>
+              </span>
+              <span>Sauvegardes</span>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div class="sidebar__footer">
+        <strong>État du système</strong>
+        <p>Allègement du stock détecté sur 4 références. Vérifier le prochain approvisionnement.</p>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar__left">
+          <div class="topbar__title">Tableau de bord</div>
+          <div class="topbar__meta">Aujourd’hui · 21 Octobre 2026</div>
+        </div>
+
+        <div class="topbar__right">
+          <label class="search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="6"></circle>
+              <path d="m16 16 5 5"></path>
+            </svg>
+            <input type="text" value="" placeholder="Rechercher..." />
+          </label>
+
+          <button class="topbar__button">Nouvelle vente</button>
+
+          <div class="user">
+            <div class="user__avatar">MK</div>
+            <div class="user__meta">
+              <strong>Mohamed K.</strong>
+              <span>Administrateur</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <section class="stats">
+          <article class="stat">
+            <div class="stat__top">
+              <div class="stat__label">Chiffre d’affaires</div>
+              <div class="stat__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 1v22"/>
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14.5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+              </div>
+            </div>
+            <div class="stat__value">58 420 €</div>
+            <div class="stat__meta">
+              <span>vs. mois dernier</span>
+              <span class="stat__trend trend--up">+12.4%</span>
+            </div>
+          </article>
+
+          <article class="stat">
+            <div class="stat__top">
+              <div class="stat__label">Encaissements</div>
+              <div class="stat__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 12h18"/>
+                  <path d="M12 3v18"/>
+                  <circle cx="12" cy="12" r="9"/>
+                </svg>
+              </div>
+            </div>
+            <div class="stat__value">41 860 €</div>
+            <div class="stat__meta">
+              <span>paiements validés</span>
+              <span class="stat__trend trend--up">+9.1%</span>
+            </div>
+          </article>
+
+          <article class="stat">
+            <div class="stat__top">
+              <div class="stat__label">Ventes</div>
+              <div class="stat__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 4h14v14H5z"/>
+                  <path d="M9 8h6M9 12h6M9 16h4"/>
+                </svg>
+              </div>
+            </div>
+            <div class="stat__value">214</div>
+            <div class="stat__meta">
+              <span>cette période</span>
+              <span class="stat__trend trend--up">+7.8%</span>
+            </div>
+          </article>
+
+          <article class="stat">
+            <div class="stat__top">
+              <div class="stat__label">Clients actifs</div>
+              <div class="stat__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9.5" cy="7" r="3.5"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </div>
+            </div>
+            <div class="stat__value">1 284</div>
+            <div class="stat__meta">
+              <span>sur 30 jours</span>
+              <span class="stat__trend trend--down">-1.2%</span>
+            </div>
+          </article>
+        </section>
+
+        <section class="grid">
+          <div class="panel">
+            <div class="panel__head">
+              <div class="panel__title">Évolution du chiffre d’affaires</div>
+              <div class="chip">30 jours</div>
+            </div>
+
+            <div class="chart">
+              <div class="chart__col">
+                <div class="chart__bar-wrap">
+                  <div class="chart__bar" style="height:28%;"></div>
+                </div>
+                <div class="chart__label">Jan</div>
+              </div>
+              <div class="chart__col">
+                <div class="chart__bar-wrap">
+                  <div class="chart__bar" style="height:38%;"></div>
+                </div>
+                <div class="chart__label">Fév</div>
+              </div>
+              <div class="chart__col">
+                <div class="chart__bar-wrap">
+                  <div class="chart__bar" style="height:52%;"></div>
+                </div>
+                <div class="chart__label">Mar</div>
+              </div>
+              <div class="chart__col">
+                <div class="chart__bar-wrap">
+                  <div class="chart__bar" style="height:44%;"></div>
+                </div>
+                <div class="chart__label">Avr</div>
+              </div>
+              <div class="chart__col">
+                <div class="chart__bar-wrap">
+                  <div class="chart__bar" style="height:68%;"></div>
+                </div>
+                <div class="chart__label">Mai</div>
+              </div>
+              <div class="chart__col">
+                <div class="chart__bar-wrap">
+                  <div class="chart__bar" style="height:62%;"></div>
+                </div>
+                <div class="chart__label">Jui</div>
+              </div>
+              <div class="chart__col">
+                <div class="chart__bar-wrap">
+                  <div class="chart__bar" style="height:74%;"></div>
+                </div>
+                <div class="chart__label">Jui</div>
+              </div>
+            </div>
+
+            <div class="chart__legend">
+              <div class="legend">
+                <span class="legend__dot"></span>
+                <span>Ventes</span>
+              </div>
+              <div>Objectif : 72k €</div>
+            </div>
+          </div>
+
+          <div class="list">
+            <div class="mini-card">
+              <div class="mini-card__title">Stock global</div>
+              <div class="ring">
+                <div class="ring__value">68%</div>
+              </div>
+              <div class="mini-card__text">
+                3 catégories proches du seuil d’alerte.
+              </div>
+            </div>
+
+            <div class="mini-card">
+              <div class="mini-card__title">Objectif du mois</div>
+              <div class="progress-list">
+                <div class="progress">
+                  <div class="progress__head">
+                    <span>Ventes</span>
+                    <strong>84%</strong>
+                  </div>
+                  <div class="progress__bar">
+                    <div class="progress__fill" style="width:84%"></div>
+                  </div>
+                </div>
+
+                <div class="progress">
+                  <div class="progress__head">
+                    <span>Encaissements</span>
+                    <strong>71%</strong>
+                  </div>
+                  <div class="progress__bar">
+                    <div class="progress__fill" style="width:71%"></div>
+                  </div>
+                </div>
+
+                <div class="progress">
+                  <div class="progress__head">
+                    <span>Approvisionnements</span>
+                    <strong>58%</strong>
+                  </div>
+                  <div class="progress__bar">
+                    <div class="progress__fill" style="width:58%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="table-card">
+          <div class="panel__head">
+            <div class="panel__title">Dernières ventes</div>
+            <div class="chip">Aujourd’hui</div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Référence</th>
+                  <th>Client</th>
+                  <th>Produits</th>
+                  <th>Total</th>
+                  <th>Statut</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>#VTE-1042</td>
+                  <td>Hassane M.</td>
+                  <td>3 articles</td>
+                  <td class="money">1 240 €</td>
+                  <td><span class="status status--paid">Payé</span></td>
+                  <td>
+                    <div class="row-actions">
+                      <button class="action" title="Voir">↗</button>
+                      <button class="action" title="Imprimer">⎙</button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>#VTE-1041</td>
+                  <td>Fatima D.</td>
+                  <td>5 articles</td>
+                  <td class="money">2 680 €</td>
+                  <td><span class="status status--pending">Partiel</span></td>
+                  <td>
+                    <div class="row-actions">
+                      <button class="action" title="Voir">↗</button>
+                      <button class="action" title="Imprimer">⎙</button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>#VTE-1040</td>
+                  <td>Ali B.</td>
+                  <td>2 articles</td>
+                  <td class="money">820 €</td>
+                  <td><span class="status status--danger">À suivre</span></td>
+                  <td>
+                    <div class="row-actions">
+                      <button class="action" title="Voir">↗</button>
+                      <button class="action" title="Imprimer">⎙</button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>#VTE-1039</td>
+                  <td>Lina R.</td>
+                  <td>8 articles</td>
+                  <td class="money">3 540 €</td>
+                  <td><span class="status status--paid">Payé</span></td>
+                  <td>
+                    <div class="row-actions">
+                      <button class="action" title="Voir">↗</button>
+                      <button class="action" title="Imprimer">⎙</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="bottom-grid">
+          <div class="panel">
+            <div class="panel__head">
+              <div class="panel__title">Alertes stock</div>
+              <div class="chip">À surveiller</div>
+            </div>
+
+            <div class="small-list">
+              <div class="small-item">
+                <div class="small-item__left">
+                  <span class="small-item__dot"></span>
+                  <div class="small-item__text">
+                    <strong>Omega 3 Forte</strong>
+                    <span>12 unités restantes</span>
+                  </div>
+                </div>
+                <div class="small-item__right">Bas</div>
+              </div>
+
+              <div class="small-item">
+                <div class="small-item__left">
+                  <span class="small-item__dot" style="background:var(--warning);"></span>
+                  <div class="small-item__text">
+                    <strong>Multi Vitamines</strong>
+                    <span>18 unités restantes</span>
+                  </div>
+                </div>
+                <div class="small-item__right">Faible</div>
+              </div>
+
+              <div class="small-item">
+                <div class="small-item__left">
+                  <span class="small-item__dot" style="background:var(--danger);"></span>
+                  <div class="small-item__text">
+                    <strong>Magnesium Plus</strong>
+                    <span>6 unités restantes</span>
+                  </div>
+                </div>
+                <div class="small-item__right">Urgent</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel__head">
+              <div class="panel__title">Activité récente</div>
+              <div class="chip">Auj.</div>
+            </div>
+
+            <div class="small-list">
+              <div class="small-item">
+                <div class="small-item__left">
+                  <span class="small-item__dot" style="background:var(--success);"></span>
+                  <div class="small-item__text">
+                    <strong>Approvisionnement validé</strong>
+                    <span>Réception de 120 unités</span>
+                  </div>
+                </div>
+                <div class="small-item__right">08:10</div>
+              </div>
+
+              <div class="small-item">
+                <div class="small-item__left">
+                  <span class="small-item__dot" style="background:var(--info);"></span>
+                  <div class="small-item__text">
+                    <strong>Nouveau client</strong>
+                    <span>Inscription sur la plateforme</span>
+                  </div>
+                </div>
+                <div class="small-item__right">09:30</div>
+              </div>
+
+              <div class="small-item">
+                <div class="small-item__left">
+                  <span class="small-item__dot" style="background:var(--warning);"></span>
+                  <div class="small-item__text">
+                    <strong>Inspection stock</strong>
+                    <span>Écart détecté sur 2 produits</span>
+                  </div>
+                </div>
+                <div class="small-item__right">11:25</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>
+

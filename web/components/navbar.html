@@ -1,0 +1,35 @@
+<!--
+  ==========================================================
+  COMPOSANT : NAVBAR
+  RESPONSABILITÉ : Barre supérieure de l'application.
+  CONTENU : titre de la page, recherche, action principale, utilisateur.
+  FUTUR FICHIER THYMELEAF : templates/fragments/navbar.html
+  RÔLE DANS LE PROJET : composant réutilisable sur toutes les pages.
+  ==========================================================
+-->
+<header class="topbar" aria-label="Barre supérieure">
+  <div class="topbar__left">
+    <div class="topbar__title">Tableau de bord</div>
+    <div class="topbar__meta">Aujourd’hui · 21 Octobre 2026</div>
+  </div>
+
+  <div class="topbar__right">
+    <label class="search" aria-label="Recherche rapide">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="6"></circle>
+        <path d="m16 16 5 5"></path>
+      </svg>
+      <input type="search" value="" placeholder="Rechercher..." aria-label="Rechercher" />
+    </label>
+
+    <button class="topbar__button" type="button">Nouvelle vente</button>
+
+    <div class="user" aria-label="Profil utilisateur">
+      <div class="user__avatar">MK</div>
+      <div class="user__meta">
+        <strong>Mohamed K.</strong>
+        <span>Administrateur</span>
+      </div>
+    </div>
+  </div>
+</header>

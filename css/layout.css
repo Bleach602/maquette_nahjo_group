@@ -1,0 +1,25 @@
+/* ==================================================
+   LAYOUT : STRUCTURE GLOBALE
+   RESPONSABILITÉ : grille principale de l'application.
+   FUTUR FICHIER : css/layout.css
+   RÔLE DANS LE PROJET : structure commune à toutes les vues.
+   ================================================== */
+.app-shell {
+  display:grid;
+  grid-template-columns:260px minmax(0, 1fr);
+  min-height:100vh;
+}
+
+.main-shell {
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
+
+.content-root {
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+}
+

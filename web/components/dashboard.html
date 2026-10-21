@@ -1,0 +1,354 @@
+<!--
+  ==========================================================
+  PAGE : DASHBOARD
+  RESPONSABILITÉ : Contenu principal du tableau de bord.
+  CONTENU : KPI, graphes, ventes récentes, alertes stock, activité.
+  FUTUR FICHIER THYMELEAF : templates/pages/dashboard.html
+  RÔLE DANS LE PROJET : contenu affiché dans le panel central.
+  ==========================================================
+-->
+<section class="dashboard-page">
+  <div class="stats">
+    <article class="stat">
+      <div class="stat__top">
+        <div class="stat__label">Chiffre d’affaires</div>
+        <div class="stat__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 1v22"/>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14.5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+      </div>
+      <div class="stat__value">58 420 €</div>
+      <div class="stat__meta">
+        <span>vs. mois dernier</span>
+        <span class="stat__trend trend--up">+12,4%</span>
+      </div>
+    </article>
+
+    <article class="stat">
+      <div class="stat__top">
+        <div class="stat__label">Encaissements</div>
+        <div class="stat__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 12h18"/>
+            <path d="M12 3v18"/>
+            <circle cx="12" cy="12" r="9"/>
+          </svg>
+        </div>
+      </div>
+      <div class="stat__value">41 860 €</div>
+      <div class="stat__meta">
+        <span>paiements validés</span>
+        <span class="stat__trend trend--up">+9,1%</span>
+      </div>
+    </article>
+
+    <article class="stat">
+      <div class="stat__top">
+        <div class="stat__label">Ventes</div>
+        <div class="stat__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 4h14v14H5z"/>
+            <path d="M9 8h6M9 12h6M9 16h4"/>
+          </svg>
+        </div>
+      </div>
+      <div class="stat__value">214</div>
+      <div class="stat__meta">
+        <span>cette période</span>
+        <span class="stat__trend trend--up">+7,8%</span>
+      </div>
+    </article>
+
+    <article class="stat">
+      <div class="stat__top">
+        <div class="stat__label">Unités en stock</div>
+        <div class="stat__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 8V6.5A2.5 2.5 0 0 1 7.5 4h9A2.5 2.5 0 0 1 19 6.5V8"/>
+            <path d="M5 8h14l-1 12H6L5 8Z"/>
+            <path d="M9 12h6"/>
+          </svg>
+        </div>
+      </div>
+      <div class="stat__value">12 480</div>
+      <div class="stat__meta">
+        <span>disponibles</span>
+        <span class="stat__trend trend--down">-1,2%</span>
+      </div>
+    </article>
+  </div>
+
+  <section class="grid">
+    <div class="panel">
+      <div class="panel__head">
+        <div class="panel__title">Évolution du chiffre d’affaires</div>
+        <div class="chip">30 jours</div>
+      </div>
+
+      <div class="chart" aria-label="Graphique d'évolution du chiffre d'affaires">
+        <div class="chart__col">
+          <div class="chart__bar-wrap">
+            <div class="chart__bar" style="height:28%;"></div>
+          </div>
+          <div class="chart__label">Jan</div>
+        </div>
+        <div class="chart__col">
+          <div class="chart__bar-wrap">
+            <div class="chart__bar" style="height:38%;"></div>
+          </div>
+          <div class="chart__label">Fév</div>
+        </div>
+        <div class="chart__col">
+          <div class="chart__bar-wrap">
+            <div class="chart__bar" style="height:52%;"></div>
+          </div>
+          <div class="chart__label">Mar</div>
+        </div>
+        <div class="chart__col">
+          <div class="chart__bar-wrap">
+            <div class="chart__bar" style="height:44%;"></div>
+          </div>
+          <div class="chart__label">Avr</div>
+        </div>
+        <div class="chart__col">
+          <div class="chart__bar-wrap">
+            <div class="chart__bar" style="height:68%;"></div>
+          </div>
+          <div class="chart__label">Mai</div>
+        </div>
+        <div class="chart__col">
+          <div class="chart__bar-wrap">
+            <div class="chart__bar" style="height:62%;"></div>
+          </div>
+          <div class="chart__label">Jui</div>
+        </div>
+        <div class="chart__col">
+          <div class="chart__bar-wrap">
+            <div class="chart__bar" style="height:74%;"></div>
+          </div>
+          <div class="chart__label">Juil</div>
+        </div>
+      </div>
+
+      <div class="chart__legend">
+        <div class="legend">
+          <span class="legend__dot"></span>
+          <span>Ventes</span>
+        </div>
+        <div>Objectif : 72 000 €</div>
+      </div>
+    </div>
+
+    <div class="list">
+      <div class="mini-card">
+        <div class="mini-card__title">Stock global</div>
+        <div class="ring" aria-label="Stock global à 68%">
+          <div class="ring__value">68%</div>
+        </div>
+        <div class="mini-card__text">3 catégories proches du seuil d’alerte.</div>
+      </div>
+
+      <div class="mini-card">
+        <div class="mini-card__title">Objectif du mois</div>
+        <div class="progress-list">
+          <div class="progress">
+            <div class="progress__head">
+              <span>Ventes</span>
+              <strong>84%</strong>
+            </div>
+            <div class="progress__bar">
+              <div class="progress__fill" style="width:84%"></div>
+            </div>
+          </div>
+
+          <div class="progress">
+            <div class="progress__head">
+              <span>Encaissements</span>
+              <strong>71%</strong>
+            </div>
+            <div class="progress__bar">
+              <div class="progress__fill" style="width:71%"></div>
+            </div>
+          </div>
+
+          <div class="progress">
+            <div class="progress__head">
+              <span>Approvisionnements</span>
+              <strong>58%</strong>
+            </div>
+            <div class="progress__bar">
+              <div class="progress__fill" style="width:58%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="table-card">
+    <div class="panel__head">
+      <div class="panel__title">Dernières ventes</div>
+      <div class="chip">Aujourd’hui</div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Référence</th>
+            <th>Client</th>
+            <th>Produits</th>
+            <th>Total</th>
+            <th>Statut</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>#VTE-1042</td>
+            <td>Hassane M.</td>
+            <td>3 articles</td>
+            <td class="money">1 240 €</td>
+            <td><span class="status status--paid">Payé</span></td>
+            <td>
+              <div class="row-actions">
+                <button class="action" type="button" title="Voir">↗</button>
+                <button class="action" type="button" title="Imprimer">⎙</button>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>#VTE-1041</td>
+            <td>Fatima D.</td>
+            <td>5 articles</td>
+            <td class="money">2 680 €</td>
+            <td><span class="status status--pending">Partiel</span></td>
+            <td>
+              <div class="row-actions">
+                <button class="action" type="button" title="Voir">↗</button>
+                <button class="action" type="button" title="Imprimer">⎙</button>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>#VTE-1040</td>
+            <td>Ali B.</td>
+            <td>2 articles</td>
+            <td class="money">820 €</td>
+            <td><span class="status status--danger">À suivre</span></td>
+            <td>
+              <div class="row-actions">
+                <button class="action" type="button" title="Voir">↗</button>
+                <button class="action" type="button" title="Imprimer">⎙</button>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>#VTE-1039</td>
+            <td>Lina R.</td>
+            <td>8 articles</td>
+            <td class="money">3 540 €</td>
+            <td><span class="status status--paid">Payé</span></td>
+            <td>
+              <div class="row-actions">
+                <button class="action" type="button" title="Voir">↗</button>
+                <button class="action" type="button" title="Imprimer">⎙</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="bottom-grid">
+    <div class="panel">
+      <div class="panel__head">
+        <div class="panel__title">Alertes stock</div>
+        <div class="chip">À surveiller</div>
+      </div>
+
+      <div class="small-list">
+        <div class="small-item">
+          <div class="small-item__left">
+            <span class="small-item__dot"></span>
+            <div class="small-item__text">
+              <strong>Omega 3 Forte</strong>
+              <span>12 unités restantes</span>
+            </div>
+          </div>
+          <div class="small-item__right">Bas</div>
+        </div>
+
+        <div class="small-item">
+          <div class="small-item__left">
+            <span class="small-item__dot" style="background:var(--warning);"></span>
+            <div class="small-item__text">
+              <strong>Multi Vitamines</strong>
+              <span>18 unités restantes</span>
+            </div>
+          </div>
+          <div class="small-item__right">Faible</div>
+        </div>
+
+        <div class="small-item">
+          <div class="small-item__left">
+            <span class="small-item__dot" style="background:var(--danger);"></span>
+            <div class="small-item__text">
+              <strong>Magnesium Plus</strong>
+              <span>6 unités restantes</span>
+            </div>
+          </div>
+          <div class="small-item__right">Urgent</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel__head">
+        <div class="panel__title">Activité récente</div>
+        <div class="chip">Auj.</div>
+      </div>
+
+      <div class="small-list">
+        <div class="small-item">
+          <div class="small-item__left">
+            <span class="small-item__dot" style="background:var(--success);"></span>
+            <div class="small-item__text">
+              <strong>Approvisionnement validé</strong>
+              <span>Réception de 120 unités</span>
+            </div>
+          </div>
+          <div class="small-item__right">08:10</div>
+        </div>
+
+        <div class="small-item">
+          <div class="small-item__left">
+            <span class="small-item__dot" style="background:var(--info);"></span>
+            <div class="small-item__text">
+              <strong>Nouveau client</strong>
+              <span>Inscription sur la plateforme</span>
+            </div>
+          </div>
+          <div class="small-item__right">09:30</div>
+        </div>
+
+        <div class="small-item">
+          <div class="small-item__left">
+            <span class="small-item__dot" style="background:var(--warning);"></span>
+            <div class="small-item__text">
+              <strong>Inspection stock</strong>
+              <span>Écart détecté sur 2 produits</span>
+            </div>
+          </div>
+          <div class="small-item__right">11:25</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
